@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Elkoop Hammer GmbH – Elektrotechnik Stuttgart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#1a3328;
+  --green2:#243d30;
+  --green3:#2e5040;
+  --copper:#b87333;
+  --copper2:#d4894a;
+  --cream:#f5efe6;
+  --cream2:#ede3d7;
+  --white:#fdfaf6;
+  --text:#1a2018;
+  --muted:#7a8c78;
+  --border:rgba(184,115,51,.18);
+  --r:2px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:72px;
+  background:rgba(26,51,40,.97);
+  backdrop-filter:blur(12px);
+}
+.nav-bar{position:absolute;bottom:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--copper),var(--copper2),transparent);animation:navGrow 1.4s .2s ease forwards}
+@keyframes navGrow{to{width:100%}}
+
+.logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.logo-mark{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--copper),var(--copper2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;
+  animation:logoGlow 3s ease-in-out infinite
+}
+@keyframes logoGlow{0%,100%{box-shadow:0 0 0 0 rgba(184,115,51,.4)}50%{box-shadow:0 0 0 8px rgba(184,115,51,0)}}
+.logo-name{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--white);letter-spacing:.02em;line-height:1.1}
+.logo-name span{color:var(--copper2)}
+.logo-sub{font-size:.6rem;color:rgba(253,250,246,.4);letter-spacing:.15em;text-transform:uppercase;display:block;font-family:'DM Sans',sans-serif}
+
+.nav-links{display:flex;gap:2.4rem;list-style:none;align-items:center}
+.nav-links a{color:rgba(253,250,246,.6);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;position:relative;padding-bottom:3px}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--copper2);transition:width .25s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:linear-gradient(135deg,var(--copper),var(--copper2));color:var(--white)!important;padding:9px 22px;border-radius:var(--r);font-weight:600!important;transition:opacity .2s!important}
+.nav-cta:hover{opacity:.85!important}
+.nav-cta::after{display:none!important}
+
+/* ─── HERO ─── */
+#hero{min-height:100vh;position:relative;display:flex;align-items:flex-end;overflow:hidden}
+
+.hero-img{
+  position:absolute;inset:0;z-index:0;
+  background:url('https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=1800&auto=format&fit=crop&q=85') center/cover no-repeat;
+  transform:scale(1.06);
+  animation:heroScale 14s ease-out forwards
+}
+@keyframes heroScale{to{transform:scale(1)}}
+
+.hero-grad{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to top,rgba(26,51,40,.97) 0%,rgba(26,51,40,.55) 50%,rgba(26,51,40,.2) 100%)
+}
+/* thin copper vertical line */
+.hero-line{position:absolute;top:0;bottom:0;left:5%;width:1px;background:linear-gradient(to bottom,transparent,rgba(184,115,51,.4),transparent);z-index:2;animation:lineIn 1.2s .5s ease both;transform-origin:top}
+@keyframes lineIn{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+.hero-content{position:relative;z-index:3;padding:0 5% 90px;max-width:900px}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:8px;margin-bottom:2rem;
+  border:1px solid rgba(184,115,51,.4);border-radius:20px;
+  padding:5px 18px 5px 8px;
+  opacity:0;animation:up .7s .3s ease both
+}
+.hero-chip-dot{width:8px;height:8px;border-radius:50%;background:var(--copper2);animation:blink 1.6s 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero-chip span{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--copper2)}
+
+.hero-h1{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(3.2rem,7.5vw,6.8rem);
+  line-height:.98;color:var(--white);
+  margin-bottom:1.6rem;
+  opacity:0;animation:up .8s .42s ease both
+}
+.hero-h1 em{font-style:italic;color:var(--copper2)}
+
+.hero-p{
+  font-size:1.05rem;color:rgba(253,250,246,.65);line-height:1.8;
+  font-weight:300;max-width:500px;margin-bottom:2.5rem;
+  opacity:0;animation:up .8s .56s ease both
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:up .8s .7s ease both}
+@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+.btn-solid{
+  background:linear-gradient(135deg,var(--copper),var(--copper2));
+  color:var(--white);font-weight:600;font-size:.9rem;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:14px 36px;border-radius:var(--r);border:none;
+  cursor:pointer;text-decoration:none;display:inline-block;
+  position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s
+}
+.btn-solid::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transform:translateX(-100%);transition:transform .5s}
+.btn-solid:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(184,115,51,.4)}
+.btn-solid:hover::after{transform:translateX(100%)}
+
+.btn-line{
+  background:transparent;color:var(--white);
+  border:1.5px solid rgba(253,250,246,.3);
+  font-weight:500;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:13px 32px;border-radius:var(--r);
+  cursor:pointer;text-decoration:none;display:inline-block;
+  transition:border-color .2s,color .2s
+}
+.btn-line:hover{border-color:var(--copper2);color:var(--copper2)}
+
+/* stats strip */
+.hero-stats{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(184,115,51,.2);
+  opacity:0;animation:up .8s .9s ease both
+}
+.hstat{padding:1.6rem 5%;border-right:1px solid rgba(184,115,51,.15)}
+.hstat:last-child{border-right:none}
+.hstat-n{font-family:'DM Serif Display',serif;font-size:2.4rem;color:var(--copper2);line-height:1}
+.hstat-l{font-size:.68rem;color:rgba(253,250,246,.45);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+
+/* ─── SECTION COMMONS ─── */
+section{padding:120px 5%;position:relative}
+.tag{display:inline-flex;align-items:center;gap:10px;font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:.9rem}
+.tag::before{content:'';width:22px;height:1px;background:var(--copper)}
+h2.h2{font-family:'DM Serif Display',serif;font-size:clamp(2.4rem,4.5vw,3.8rem);line-height:1.05;color:var(--green);margin-bottom:1.2rem}
+h2.h2 em{font-style:italic;color:var(--copper)}
+.sub{color:var(--muted);font-size:1rem;line-height:1.8;font-weight:300;max-width:540px}
+
+/* ─── SERVICES ─── */
+#leistungen{background:var(--white)}
+
+.svc-intro{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:2rem}
+.svc-intro h2.h2{margin-bottom:0}
+
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+
+.svc-card{
+  border-radius:4px;overflow:hidden;background:var(--cream);
+  border:1px solid var(--cream2);
+  transition:transform .35s,box-shadow .35s;
+  opacity:0;transform:translateY(24px)
+}
+.svc-card.on{opacity:1;transform:translateY(0)}
+.svc-card:nth-child(1){transition:opacity .6s .05s,transform .6s .05s,box-shadow .35s}
+.svc-card:nth-child(2){transition:opacity .6s .18s,transform .6s .18s,box-shadow .35s}
+.svc-card:nth-child(3){transition:opacity .6s .31s,transform .6s .31s,box-shadow .35s}
+.svc-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(26,51,40,.12)}
+
+.svc-img-wrap{position:relative;overflow:hidden}
+.svc-img{width:100%;height:240px;object-fit:cover;display:block;transition:transform .6s;filter:saturate(.85)}
+.svc-card:hover .svc-img{transform:scale(1.05)}
+.svc-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,51,40,.5),transparent);opacity:0;transition:opacity .4s}
+.svc-card:hover .svc-img-overlay{opacity:1}
+.svc-img-tag{
+  position:absolute;top:14px;left:14px;
+  background:rgba(26,51,40,.85);color:var(--copper2);
+  font-size:.65rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 12px;border-radius:12px;
+  backdrop-filter:blur(6px)
+}
+
+.svc-body{padding:1.75rem}
+.svc-title{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--green);margin-bottom:.6rem}
+.svc-desc{color:var(--muted);font-size:.93rem;line-height:1.75;font-weight:300}
+.svc-more{
+  display:inline-flex;align-items:center;gap:6px;margin-top:1.2rem;
+  font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--copper);opacity:0;transform:translateX(-6px);
+  transition:opacity .25s,transform .25s
+}
+.svc-card:hover .svc-more{opacity:1;transform:translateX(0)}
+
+/* ─── ABOUT ─── */
+#ueber-uns{background:var(--green);overflow:hidden}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:620px}
+
+.about-photos{position:relative;overflow:hidden}
+.about-photo-main{
+  width:100%;height:100%;min-height:480px;object-fit:cover;
+  display:block;filter:brightness(.8) saturate(.8);
+  transition:transform 8s ease
+}
+.about-photos:hover .about-photo-main{transform:scale(1.04)}
+
+/* floating inset photo */
+.about-photo-inset{
+  position:absolute;bottom:32px;right:-28px;
+  width:200px;height:150px;object-fit:cover;border-radius:4px;
+  border:4px solid var(--green);
+  box-shadow:0 12px 36px rgba(0,0,0,.35);
+  filter:brightness(.85);
+  opacity:0;transform:translateX(20px);
+  transition:opacity .7s .4s,transform .7s .4s
+}
+.about-photo-inset.on{opacity:1;transform:translateX(0)}
+
+.about-badge{
+  position:absolute;top:32px;left:32px;
+  background:linear-gradient(135deg,var(--copper),var(--copper2));
+  color:var(--white);
+  font-family:'DM Serif Display',serif;
+  width:110px;height:110px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;line-height:1.1;
+  box-shadow:0 8px 28px rgba(184,115,51,.5);
+  animation:badgePop 3s ease-in-out infinite
+}
+@keyframes badgePop{0%,100%{box-shadow:0 8px 28px rgba(184,115,51,.5)}50%{box-shadow:0 8px 40px rgba(184,115,51,.8)}}
+.about-badge strong{font-size:2rem;display:block}
+.about-badge small{font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;font-family:'DM Sans',sans-serif;opacity:.85}
+
+.about-content{padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center}
+.about-content .tag{color:rgba(184,115,51,.8)}
+.about-content .tag::before{background:rgba(184,115,51,.6)}
+.about-content h2.h2{color:var(--white)}
+.about-content h2.h2 em{color:var(--copper2)}
+.about-content .sub{color:rgba(253,250,246,.6)}
+
+.about-list{list-style:none;margin-top:2rem;display:flex;flex-direction:column;gap:.9rem}
+.about-list li{display:flex;align-items:flex-start;gap:14px;color:rgba(253,250,246,.75);font-size:.96rem;line-height:1.65}
+.al-dot{width:20px;height:20px;border-radius:50%;background:rgba(184,115,51,.15);border:1px solid rgba(184,115,51,.4);display:flex;align-items:center;justify-content:center;color:var(--copper2);font-size:.6rem;flex-shrink:0;margin-top:3px}
+
+/* ─── NUMBERS ─── */
+#zahlen{
+  background:var(--cream2);padding:90px 5%;
+  border-top:1px solid rgba(184,115,51,.15);border-bottom:1px solid rgba(184,115,51,.15)
+}
+.nums-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(184,115,51,.12);border:1px solid rgba(184,115,51,.12);border-radius:4px;overflow:hidden}
+.num-item{background:var(--cream2);padding:3.5rem 2rem;text-align:center;transition:background .3s}
+.num-item:hover{background:var(--white)}
+.num-n{font-family:'DM Serif Display',serif;font-size:3.8rem;color:var(--green);line-height:1}
+.num-n .suf{font-size:2rem}
+.num-l{font-size:.68rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:.5rem}
+
+/* ─── IMAGE STRIP ─── */
+#strip{padding:0;height:340px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;overflow:hidden}
+.strip-img{
+  height:100%;object-fit:cover;filter:saturate(.7) brightness(.85);
+  transition:filter .4s,transform .6s;transform:scale(1.02)
+}
+.strip-img:hover{filter:saturate(1) brightness(.95);transform:scale(1)}
+
+/* ─── CONTACT ─── */
+#kontakt{background:var(--white)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:4rem}
+
+.c-info-block{margin-bottom:1.8rem}
+.c-label{font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--copper);margin-bottom:.35rem}
+.c-val{color:var(--green);font-size:1rem;line-height:1.65;font-weight:400}
+
+.map-wrap{margin-top:2rem;border-radius:4px;overflow:hidden;border:1px solid var(--cream2);box-shadow:0 4px 24px rgba(26,51,40,.08)}
+.map-wrap iframe{width:100%;height:300px;border:none;display:block;filter:saturate(.5)}
+
+/* form */
+.form-box{
+  background:var(--cream);border:1px solid var(--cream2);
+  border-radius:4px;padding:2.5rem;
+  position:relative;overflow:hidden
+}
+.form-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--copper),var(--copper2),transparent)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg.full{grid-column:1/-1}
+label{font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+input,textarea{
+  font-family:'DM Sans',sans-serif;font-size:.95rem;
+  background:var(--white);border:1px solid var(--cream2);border-radius:var(--r);
+  color:var(--text);padding:11px 15px;outline:none;
+  transition:border-color .2s,box-shadow .2s;resize:vertical
+}
+input:focus,textarea:focus{border-color:var(--copper);box-shadow:0 0 0 3px rgba(184,115,51,.08)}
+textarea{min-height:110px}
+.btn-submit{
+  width:100%;background:linear-gradient(135deg,var(--green),var(--green2));
+  color:var(--white);font-weight:600;font-size:.9rem;letter-spacing:.08em;
+  text-transform:uppercase;border:none;border-radius:var(--r);
+  padding:14px;cursor:pointer;margin-top:.5rem;
+  position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s
+}
+.btn-submit::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);transform:translateX(-100%);transition:transform .5s}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,51,40,.3)}
+.btn-submit:hover::after{transform:translateX(100%)}
+
+/* ─── FOOTER ─── */
+footer{
+  background:var(--green2);color:rgba(253,250,246,.45);
+  padding:2.5rem 5%;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  border-top:1px solid rgba(184,115,51,.15)
+}
+.foot-logo{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--white)}
+.foot-logo em{font-style:italic;color:var(--copper2)}
+.foot-copy{font-size:.82rem}
+.foot-links a{color:rgba(253,250,246,.45);text-decoration:none;font-size:.8rem;margin-left:1.5rem;transition:color .2s}
+.foot-links a:hover{color:var(--copper2)}
+
+/* ─── REVEAL ─── */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rvl{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease}
+.rvr{opacity:0;transform:translateX(28px);transition:opacity .7s ease,transform .7s ease}
+.rv.on,.rvl.on,.rvr.on{opacity:1;transform:translate(0)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1000px){
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:0}
+  .about-content{padding:3.5rem 2.5rem}
+  .about-photo-main{min-height:360px}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  #strip{grid-template-columns:1fr 1fr;height:500px}
+  .nums-grid{grid-template-columns:1fr 1fr}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+@media(max-width:640px){
+  .svc-grid{grid-template-columns:1fr}
+  #strip{grid-template-columns:1fr 1fr;height:400px}
+  .frow{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+  .foot-links a:first-child{margin-left:0}
+  .about-photo-inset{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-bar"></div>
+  <a href="#hero" class="logo">
+    <div class="logo-mark">⚡</div>
+    <div class="logo-name">Elkoop <span>Hammer</span><span class="logo-sub">GmbH · Stuttgart</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#ueber-uns">Über uns</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="#kontakt" class="nav-cta">Anfrage stellen</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-img"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-content">
+    <div class="hero-chip"><div class="hero-chip-dot"></div><span>Ihr Elektrobetrieb in Stuttgart</span></div>
+    <h1 class="hero-h1">
+      Präzision.<br>
+      <em>Verlässlichkeit.</em><br>
+      Strom.
+    </h1>
+    <p class="hero-p">Die Elkoop Hammer GmbH steht seit über 10 Jahren für erstklassige Elektroinstallationen, schnelle Reparaturen und persönlichen Kundendienst in Stuttgart und Umgebung.</p>
+    <div class="hero-btns">
+      <a href="#kontakt" class="btn-solid">Jetzt Anfrage stellen</a>
+      <a href="#leistungen" class="btn-line">Leistungen entdecken</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-n" data-to="10" data-suf="+">0</div><div class="hstat-l">Jahre Erfahrung</div></div>
+    <div class="hstat"><div class="hstat-n" data-to="500" data-suf="+">0</div><div class="hstat-l">Kundenprojekte</div></div>
+    <div class="hstat"><div class="hstat-n" data-to="24" data-suf="h">0</div><div class="hstat-l">Reaktionszeit</div></div>
+    <div class="hstat"><div class="hstat-n" data-to="100" data-suf="%">0</div><div class="hstat-l">Qualitätsgarantie</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="leistungen">
+  <div class="svc-intro rv">
+    <div>
+      <div class="tag">Was wir bieten</div>
+      <h2 class="h2">Unsere <em>Leistungen</em></h2>
+    </div>
+    <p class="sub">Alles rund um Elektrotechnik — von der Planung bis zur Abnahme, für Privat- und Gewerbekunden.</p>
+  </div>
+
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-img-wrap">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&auto=format&fit=crop&q=80" alt="Elektroinstallation"/>
+        <div class="svc-img-overlay"></div>
+        <div class="svc-img-tag">01 — Installation</div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-title">Elektroinstallationen</div>
+        <p class="svc-desc">Fachgerechte Neuinstallationen und Erweiterungen in Wohn- und Gewerbegebäuden. Normgerecht nach VDE, termingerecht und sauber ausgeführt.</p>
+        <div class="svc-more">Mehr erfahren →</div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img-wrap">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&auto=format&fit=crop&q=80" alt="Reparaturen"/>
+        <div class="svc-img-overlay"></div>
+        <div class="svc-img-tag">02 — Reparatur</div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-title">Reparaturen</div>
+        <p class="svc-desc">Schnelle Fehlerdiagnose und dauerhafte Instandsetzung. Wir kommen zeitnah, beheben das Problem professionell — beim ersten Besuch.</p>
+        <div class="svc-more">Mehr erfahren →</div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-img-wrap">
+        <img class="svc-img" src="https://images.unsplash.com/photo-1605726166-c3b7e83b98e8?w=900&auto=format&fit=crop&q=80" alt="Kundendienst"/>
+        <div class="svc-img-overlay"></div>
+        <div class="svc-img-tag">03 — Service</div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-title">Kundendienst</div>
+        <p class="svc-desc">Regelmäßige Wartung, Prüfberichte und persönliche Beratung. Als langfristiger Partner bleiben wir auch nach dem Auftrag Ihr Ansprechpartner.</p>
+        <div class="svc-more">Mehr erfahren →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="ueber-uns" style="padding:0">
+  <div class="about-grid">
+    <div class="about-photos rvl">
+      <img class="about-photo-main" src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1000&auto=format&fit=crop&q=80" alt="Team Elkoop Hammer"/>
+      <img class="about-photo-inset" src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=500&auto=format&fit=crop&q=80" alt="Elektroarbeit Detail"/>
+      <div class="about-badge"><strong>10+</strong><small>Jahre<br>Erfahrung</small></div>
+    </div>
+    <div class="about-content rvr">
+      <div class="tag">Wer wir sind</div>
+      <h2 class="h2">Handwerk mit<br><em>Leidenschaft.</em></h2>
+      <p class="sub">Die Elkoop Hammer GmbH wurde mit einem klaren Ziel gegründet: erstklassige Elektroarbeit zu fairen Preisen, mit dem persönlichen Anspruch eines Meisterbetriebs. Seit über einem Jahrzehnt vertrauen Privatkunden, Hausverwaltungen und Gewerbebetriebe in Stuttgart auf unsere Qualität.</p>
+      <ul class="about-list">
+        <li><div class="al-dot">✦</div>Zertifizierter Meisterbetrieb nach aktuellen VDE-Normen</li>
+        <li><div class="al-dot">✦</div>Transparente Angebote — ohne versteckte Kosten</li>
+        <li><div class="al-dot">✦</div>Kurze Reaktionszeiten durch ortsansässiges Fachteam</li>
+        <li><div class="al-dot">✦</div>Persönlicher Ansprechpartner von Anfang bis Ende</li>
+        <li><div class="al-dot">✦</div>Nachhaltige Lösungen — keine Quick-Fixes auf Kosten der Qualität</li>
+      </ul>
+      <div style="margin-top:2.5rem"><a href="#kontakt" class="btn-solid">Unverbindlich anfragen</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section id="zahlen">
+  <div class="rv" style="text-align:center;margin-bottom:3rem">
+    <div class="tag" style="justify-content:center">Elkoop Hammer in Zahlen</div>
+    <h2 class="h2" style="text-align:center;max-width:none">Was uns <em>auszeichnet</em></h2>
+  </div>
+  <div class="nums-grid">
+    <div class="num-item rv"><div class="num-n" data-to="10" data-suf="+">0</div><div class="num-l">Jahre Betriebserfahrung</div></div>
+    <div class="num-item rv" style="transition-delay:.1s"><div class="num-n" data-to="500" data-suf="+">0</div><div class="num-l">Abgeschlossene Projekte</div></div>
+    <div class="num-item rv" style="transition-delay:.2s"><div class="num-n" data-to="98" data-suf="%">0</div><div class="num-l">Kundenzufriedenheit</div></div>
+    <div class="num-item rv" style="transition-delay:.3s"><div class="num-n" data-to="24" data-suf="h">0</div><div class="num-l">Reaktionszeit</div></div>
+  </div>
+</section>
+
+<!-- IMAGE STRIP -->
+<section id="strip">
+  <img class="strip-img" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=700&auto=format&fit=crop&q=75" alt="Elektrik 1"/>
+  <img class="strip-img" src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=500&auto=format&fit=crop&q=75" alt="Elektrik 2"/>
+  <img class="strip-img" src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=500&auto=format&fit=crop&q=75" alt="Stuttgart"/>
+  <img class="strip-img" src="https://images.unsplash.com/photo-1581092787765-e3feb951d987?w=500&auto=format&fit=crop&q=75" alt="Technik"/>
+</section>
+
+<!-- CONTACT -->
+<section id="kontakt">
+  <div class="rv">
+    <div class="tag">Sprechen Sie uns an</div>
+    <h2 class="h2">Kontakt &amp; <em>Anfrage</em></h2>
+    <p class="sub">Wir freuen uns auf Ihre Nachricht. Antwort garantiert innerhalb von 24 Stunden.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="rvl">
+      <div class="c-info-block"><div class="c-label">Adresse</div><div class="c-val">Ostendstr. 51<br>70188 Stuttgart</div></div>
+      <div class="c-info-block"><div class="c-label">Telefon</div><div class="c-val">+49 711 123 456 00</div></div>
+      <div class="c-info-block"><div class="c-label">E-Mail</div><div class="c-val">info@elkoop-hammer.de</div></div>
+      <div class="c-info-block"><div class="c-label">Öffnungszeiten</div><div class="c-val">Mo–Fr: 07:30 – 17:00 Uhr<br>Sa: auf Anfrage</div></div>
+      <div class="map-wrap">
+        <iframe title="Standort" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2629.5!2d9.2005!3d48.7775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4799db3d56af8e97%3A0x6a7462a6c2a46e4c!2sOstendstra%C3%9Fe%2051%2C%2070188%20Stuttgart!5e0!3m2!1sde!2sde!4v1680000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+    <div class="form-box rvr">
+      <div class="frow">
+        <div class="fg"><label>Name</label><input type="text" placeholder="Max Mustermann"/></div>
+        <div class="fg"><label>Telefon</label><input type="tel" placeholder="+49 711 …"/></div>
+      </div>
+      <div class="frow">
+        <div class="fg full"><label>E-Mail</label><input type="email" placeholder="ihre@email.de"/></div>
+      </div>
+      <div class="frow">
+        <div class="fg full"><label>Betreff</label><input type="text" placeholder="z. B. Neuinstallation, Störung …"/></div>
+      </div>
+      <div class="frow">
+        <div class="fg full"><label>Nachricht</label><textarea placeholder="Beschreiben Sie kurz Ihr Anliegen …"></textarea></div>
+      </div>
+      <button class="btn-submit" onclick="alert('Vielen Dank! Ihre Anfrage wurde übermittelt. Wir melden uns innerhalb von 24 Stunden.')">Nachricht absenden →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Elkoop <em>Hammer</em> GmbH</div>
+  <div class="foot-copy">© 2025 · Ostendstr. 51, 70188 Stuttgart · Alle Rechte vorbehalten</div>
+  <div class="foot-links">
+    <a href="#">Impressum</a>
+    <a href="#">Datenschutz</a>
+  </div>
+</footer>
+
+<script>
+/* SCROLL REVEAL */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+}, {threshold: .1});
+document.querySelectorAll('.rv,.rvl,.rvr,.svc-card,.about-photo-inset').forEach(el => io.observe(el));
+
+/* COUNTER */
+function count(el){
+  const to = +el.dataset.to, suf = el.dataset.suf || '';
+  let c = 0; const step = to / 55;
+  const t = setInterval(() => {
+    c = Math.min(c + step, to);
+    el.textContent = Math.round(c) + suf;
+    if(c >= to) clearInterval(t);
+  }, 20);
+}
+const cio = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ count(e.target); cio.unobserve(e.target); } });
+}, {threshold: .4});
+document.querySelectorAll('[data-to]').forEach(el => {
+  // hero stats start after load
+  if(el.closest('#hero')){
+    setTimeout(() => count(el), 1300);
+  } else {
+    cio.observe(el);
+  }
+});
+
+/* NAV active */
+const sections = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  links.forEach(a => { a.style.color = a.getAttribute('href') === '#'+cur ? 'var(--white)' : ''; });
+}, {passive:true});
+</script>
+</body>
+</html>
